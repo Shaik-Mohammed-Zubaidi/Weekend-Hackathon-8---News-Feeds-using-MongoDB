@@ -23,8 +23,15 @@ app.get('/newFeeds',(req,res)=>{
     }
     limit=parseInt(limit);
     offset= parseInt(offset);
+
     newsArticleModel.find().then(result=>{
-        let start= 0
+        if(offset<0 || offset+limit>result.length || isNaN(offset)){
+            offset=0;
+        }
+        if(limit<0 || limit>result.length || isNaN(limit)){
+            limit= 10;
+        }
+        let start= 0;
         start+= offset;
         let resultArray=[];
         for(let startIndex= start;startIndex<start+limit;startIndex++){
