@@ -6,4 +6,4 @@ const refreshAll = async () => {
     // console.log(connection)
     await newsArticleModel.insertMany(data)
 }
-refreshAll()
+refreshAll().then(()=> console.log("uploaded")).catch(error=>console.log("error occured",error));
