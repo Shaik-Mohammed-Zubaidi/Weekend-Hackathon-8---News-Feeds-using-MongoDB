@@ -28,10 +28,10 @@ app.get('/newFeeds',(req,res)=>{
         offset=0;
     }
     if(isNaN(limit)){
+        limit=10;
         if(!offsetReceived){
-            limit=0;
-        }else{
-        limit= 10;}
+            offset=0;
+        }
     }
     newsArticleModel.find().then(result=>{
 
