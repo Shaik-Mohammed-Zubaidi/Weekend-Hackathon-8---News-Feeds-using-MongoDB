@@ -14,12 +14,12 @@ let start=0;
 app.get('/newFeeds',(req,res)=>{
     let limit= parseInt(req.query.limit);
     let offset= parseInt(req.query.offset);
-    // if(!limit){
-    //     limit= defaultLimit;
-    // }
-    // if(!offset){
-    //     offset= defaultOffset;
-    // }
+    if(!limit){
+        limit= defaultLimit;
+    }
+    if(!offset){
+        offset= defaultOffset;
+    }
     newsArticleModel.find().then(result=>{
         start+= offset;
         res.json(result.splice(start,start+limit));
