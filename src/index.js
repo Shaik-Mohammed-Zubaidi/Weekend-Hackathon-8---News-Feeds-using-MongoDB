@@ -12,20 +12,23 @@ app.use(express.json());
 let defaultLimit= 10, defaultOffset= 0;
 // const tempArray= [1,2,3,4,5,6,7,8,9,10];
 app.get('/newFeeds',(req,res)=>{
-    let limit= (req.query.limit);
-    let offset= (req.query.offset);
+    let limitReceived= (req.query.limit);
+    let offsetReceived= (req.query.offset);
     // console.log(typeof limit);
-    if(!limit){
+    let limit,offset;
+    limit=parseInt(limitReceived);
+    offset= parseInt(offsetReceived);
+    if(!limitReceived){
         limit= defaultLimit;
-    }else {limit=parseInt(limit);}
-    if(!offset){
+    }
+    if(!offsetReceived){
         offset= defaultOffset;
-    }else {offset= parseInt(offset);}
+    }
     if(isNaN(offset)){
         offset=0;
     }
     if(isNaN(limit)){
-        if(!offset){
+        if(!offsetReceived){
             limit=0;
         }else{
         limit= 10;}
