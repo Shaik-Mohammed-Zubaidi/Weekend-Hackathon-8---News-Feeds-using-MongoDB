@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 let defaultLimit= 10, defaultOffset= 0;
-let start=0;
+// const tempArray= [1,2,3,4,5,6,7,8,9,10];
 app.get('/newFeeds',(req,res)=>{
     let limit= (req.query.limit);
     let offset= (req.query.offset);
@@ -24,8 +24,16 @@ app.get('/newFeeds',(req,res)=>{
     limit=parseInt(limit);
     offset= parseInt(offset);
     newsArticleModel.find().then(result=>{
+        let start= 0
         start+= offset;
-        res.json(result.splice(start,start+limit));
+        let resultArray=[];
+        for(let startIndex= start;startIndex<start+limit;startIndex++){
+            resultArray.push(result[startIndex]);
+        }
+        // resultArray= result.map((news,index)=>{
+        //     if(index===start)
+        // })
+        res.json(resultArray);
     }).catch(_=> res.json([]));
 })
 
