@@ -25,25 +25,21 @@ app.get('/newFeeds',(req,res)=>{
         offset= defaultOffset;
     }
     if(isNaN(offset)){
-        offset=0;
+        offset=defaultOffset;
     }
     if(isNaN(limit)){
-        limit=10;
+        limit=defaultLimit;
         if(!offsetReceived){
-            offset=0;
+            offset=defaultOffset;
         }
     }
     newsArticleModel.find().then(result=>{
-
         let start= 0;
         start+= offset;
         let resultArray=[];
         for(let startIndex= start;startIndex<start+limit;startIndex++){
             resultArray.push(result[startIndex]);
         }
-        // resultArray= result.map((news,index)=>{
-        //     if(index===start)
-        // })
         res.json(resultArray);
     }).catch(_=> res.json([]));
 })
