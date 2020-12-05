@@ -17,20 +17,21 @@ app.get('/newFeeds',(req,res)=>{
     // console.log(typeof limit);
     if(!limit){
         limit= defaultLimit;
-    }
+    }else {limit=parseInt(limit);}
     if(!offset){
         offset= defaultOffset;
+    }else {offset= parseInt(offset);}
+    if(isNaN(offset)){
+        offset=0;
     }
-    limit=parseInt(limit);
-    offset= parseInt(offset);
-
+    if(isNaN(limit)){
+        if(!offset){
+            limit=0;
+        }else{
+        limit= 10;}
+    }
     newsArticleModel.find().then(result=>{
-        if(offset<0 || offset+limit>result.length || isNaN(offset)){
-            offset=0;
-        }
-        if(limit<0 || limit>result.length || isNaN(limit)){
-            limit= 10;
-        }
+
         let start= 0;
         start+= offset;
         let resultArray=[];
