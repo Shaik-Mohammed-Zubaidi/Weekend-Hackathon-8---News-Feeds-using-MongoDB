@@ -16,8 +16,8 @@ app.get('/newFeeds',(req,res)=>{
     let offsetReceived= (req.query.offset);
     // console.log(typeof limit);
     let limit,offset;
-    limit=parseInt(limitReceived);
-    offset= parseInt(offsetReceived);
+    limit=parseInt(Number(limitReceived));
+    offset= parseInt(Number(offsetReceived));
     if(!limitReceived){
         limit= defaultLimit;
     }
@@ -33,6 +33,7 @@ app.get('/newFeeds',(req,res)=>{
             offset=defaultOffset;
         }
     }
+    // console.log(limit,offset);
     newsArticleModel.find().then(result=>{
         let start= 0;
         start+= offset;
